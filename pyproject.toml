@@ -1,7 +1,7 @@
 [project]
-name = "marketing-ml-classification"
+name = "marketing-ml"
 version = "0.1.0"
-description = "Machine Learning-based classification model to analyze and predict customer responses in a marketing campaign."
+description = "A machine learning initiative focused on leveraging classification, regression, and clustering models to gain insights and make predictions from marketing campaign data."
 authors = [
     {name = "Enrique Aranda Varela"}
 ]

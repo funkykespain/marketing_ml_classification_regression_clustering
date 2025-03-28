@@ -1,7 +1,7 @@
 marketing_ml_classification
 ==============================
 
-Machine Learning-based classification model to analyze and predict customer responses in a marketing campaign.
+A machine learning initiative focused on leveraging classification, regression, and clustering models to gain insights and make predictions from marketing campaign data.
 
 Project Organization
 ------------
