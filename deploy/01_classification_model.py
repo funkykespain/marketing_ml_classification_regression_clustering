@@ -1,9 +1,15 @@
+import os
 import streamlit as st
 import joblib
 import numpy as np
 
-# Cargar modelo y threshold
-model, threshold = joblib.load('../models/RandomForestClassifier.pkl')
+# Carga del modelo con ruta segura
+try:
+    model_path = os.path.join(os.path.dirname(__file__), 'models/RandomForestClassifier.pkl')
+    model, threshold = joblib.load(model_path)
+except Exception as e:
+    st.error(f"Error cargando el modelo: {str(e)}")
+    st.stop()
 
 # Título y descripción de la aplicación
 st.title("📊 Predicción de Aceptación de Campañas de Marketing")
@@ -39,27 +45,31 @@ NumCatalogPurchases = st.slider("📖 Compras realizadas por catálogo", min_val
 MntMeatProducts = st.number_input("🥩 Importe gastado en carne (últimos 2 años)", min_value=0.0, max_value=500.0, value=default_values["MntMeatProducts"])
 NumWebPurchases = st.slider("🛒 Compras realizadas online", min_value=0, max_value=25, value=default_values["NumWebPurchases"])
 Kidhome = st.selectbox("👶 Número de hijos en el hogar", [0, 1, 2], index=default_values["Kidhome"])
-Child_Home = st.radio("🏡 ¿Hay niños en casa?", options=["No", "Sí"], index=default_values["Child_Home"], format_func=lambda x: "Sí" if x == "Sí" else "No")
-
-# Convertir a numérico (0 o 1) para el modelo
-Child_Home = 1 if Child_Home == "Sí" else 0
+Child_Home = st.radio(
+    "🏡 ¿Hay niños en casa?",
+    options=[("No", 0), ("Sí", 1)],
+    index=default_values["Child_Home"]
+)[1]
 
 # Convertir los datos en un array para el modelo
 user_data = np.array([[MntWines, Spent, Income, NumCatalogPurchases, MntMeatProducts, NumWebPurchases, Kidhome, Child_Home]])
 
 # Botón para hacer la predicción
 if st.button("🔮 Predecir"):
-    # Obtener la probabilidad de aceptación de la campaña
-    proba = model.predict_proba(user_data)[:, 1][0]
-    
-    # Aplicar el threshold para la clasificación final
-    prediction = 1 if proba >= threshold else 0
+    try:
+        # Obtener la probabilidad de aceptación de la campaña
+        proba = model.predict_proba(user_data)[:, 1][0]
+        
+        # Aplicar el threshold para la clasificación final
+        prediction = 1 if proba >= threshold else 0
 
-    # Mostrar resultados
-    st.subheader("📢 Resultado de la Predicción")
-    st.write(f"**Probabilidad de aceptar una campaña:** `{proba:.2%}`")
-    
-    if prediction == 1:
-        st.success("✅ El cliente probablemente ACEPTARÁ una campaña de marketing.")
-    else:
-        st.error("❌ El cliente probablemente NO aceptará ninguna campaña de marketing.")
+        # Mostrar resultados
+        st.subheader("📢 Resultado de la Predicción")
+        st.write(f"**Probabilidad de aceptar una campaña:** `{proba:.2%}`")
+        
+        if prediction == 1:
+            st.success("✅ El cliente probablemente ACEPTARÁ una campaña de marketing.")
+        else:
+            st.error("❌ El cliente probablemente NO aceptará ninguna campaña de marketing.")
+    except Exception as e:
+        st.error(f"Error al hacer la predicción: {str(e)}")
