@@ -3,7 +3,7 @@ marketingmarketing_ml_classification_regression_clustering
 
 A machine learning initiative focused on leveraging classification, regression, and clustering models to gain insights and make predictions from marketing campaign data.
 
-![Preview del proyecto](/reports/figures/preview.png)
+![Preview del proyecto](/reports/figures/preview1.png)
 
 Project Organization
 ------------
