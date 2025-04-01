@@ -5,10 +5,6 @@ import joblib
 import numpy as np
 from pathlib import Path
 
-# Depuración
-st.write(f"Directorio actual: {os.getcwd()}")
-st.write(f"Ruta esperada del modelo: {MODEL_PATH}")
-
 # Manejo especial para urllib3 en Python 3.12
 try:
     import urllib3
@@ -107,6 +103,10 @@ def main():
     # Configuración inicial
     st.title("📊 Predicción de Aceptación de Campañas de Marketing")
     st.write("Ingrese los valores para predecir si aceptará al menos una campaña.")
+    
+    # Depuración
+    st.write(f"Directorio actual: {os.getcwd()}")
+    st.write(f"Ruta esperada del modelo: {MODEL_PATH}")
     
     # Cargar el modelo
     MODEL_PATH = Path(__file__).parent.parent / "models" / "classification" / "RandomForestClassifier.pkl"
