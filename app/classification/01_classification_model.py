@@ -103,6 +103,10 @@ def main():
     st.title("📊 Predicción de Aceptación de Campañas de Marketing")
     st.write("Ingrese los valores para predecir si aceptará al menos una campaña.")
     
+    # Cargar el modelo
+    model_path = Path(__file__).parent.parent / "models" / "classification" / "RandomForestClassifier.pkl"
+    model, threshold = load_model(model_path)
+    
     # Sidebar
     with st.sidebar:
         st.header("ℹ️ Instrucciones")
@@ -114,10 +118,6 @@ def main():
         
         st.header("⚙️ Configuración del Modelo")
         st.write(f"Threshold actual: {threshold:.2f}")
-    
-    # Carga del modelo
-    model_path = Path(__file__).parent.parent / "models" / "classification" / "RandomForestClassifier.pkl"
-    model, threshold = load_model(model_path)
     
     # Entrada de usuario
     defaults = get_default_values()
