@@ -9,21 +9,23 @@ license = {text = "MIT"}
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "numpy (>=2.2.4,<3.0.0)",
-    "pandas (>=2.2.3,<3.0.0)",
-    "matplotlib (>=3.10.1,<4.0.0)",
-    "seaborn (>=0.13.2,<0.14.0)",
-    "scipy (>=1.15.2,<2.0.0)",
-    "streamlit (>=1.44.0,<2.0.0)",
-    "scikit-learn (>=1.6.1,<2.0.0)",
-    "ipykernel (>=6.29.5,<7.0.0)",
-    "imblearn (>=0.0,<0.1)",
-    "joblib (>=1.4.2,<2.0.0)"
+    "numpy>=2.0.0",
+    "pandas>=2.0.0",
+    "matplotlib>=3.8.0",
+    "seaborn>=0.13.0",
+    "scipy>=1.12.0",
+    "streamlit>=1.32.0",
+    "scikit-learn>=1.4.0",
+    "ipykernel>=6.0.0",
+    "imbalanced-learn>=0.10.0",
+    "joblib>=1.3.0",
+    "urllib3>=2.0.0",  # Añade esto explícitamente
+    "requests>=2.31.0"  # Añade esto explícitamente
 ]
 
 [tool.poetry]
 packages = [{ include = "src" }]
 
 [build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
+requires = ["poetry-core>=2.0.0"]
 build-backend = "poetry.core.masonry.api"
