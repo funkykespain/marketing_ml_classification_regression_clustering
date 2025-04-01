@@ -13,12 +13,8 @@ except ModuleNotFoundError:
     import urllib3
 
 # Configuración de paths
-SRC_PATH = Path(__file__).parent.parent.parent / "src"
-MODEL_PATH = Path(__file__).parent.parent / "models" / "classification" / "RandomForestClassifier.pkl"
-
-if str(SRC_PATH) not in sys.path:
-    sys.path.insert(0, str(SRC_PATH))
-
+BASE_DIR = Path(__file__).resolve().parent.parent
+MODEL_PATH = BASE_DIR / "models" / "classification" / "RandomForestClassifier.pkl"
 
 # Configuración inicial de la página
 st.set_page_config(
