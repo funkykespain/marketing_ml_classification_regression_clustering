@@ -19,41 +19,12 @@ st.set_page_config(
     layout="wide"
 )
 
-# # Configuración de paths
-# BASE_DIR = Path(__file__).resolve().parent.parent.parent
-# MODEL_PATH = BASE_DIR / "models" / "classification" / "RandomForestClassifier.pkl"
-
-# # Obtener la raíz del repositorio desde la variable de entorno de Streamlit Cloud
-# REPO_ROOT = Path(os.getenv("STREAMLIT_REPO_ROOT", Path(__file__).resolve().parent.parent))
-# MODEL_PATH = REPO_ROOT / "models" / "classification" / "RandomForestClassifier.pkl"
-
-# Determinar la ruta base correctamente
+# Configuración de paths
 BASE_DIR = Path(__file__).resolve().parent.parent.parent  # Sube 2 niveles desde "app/classification"
-
 MODEL_PATH = BASE_DIR / "models" / "classification" / "RandomForestClassifier.pkl"
 
-# Verificar si el modelo existe antes de cargarlo
-if not MODEL_PATH.exists():
-    st.error(f"❌ Error: El modelo no se encuentra en: {MODEL_PATH}")
-else:
-    st.success(f"✅ Modelo encontrado en: {MODEL_PATH}")
-
-# # Definir la raíz del repositorio manualmente en función del entorno de ejecución
-# if "STREAMLIT_ENV" in os.environ:  # Esto significa que está en Streamlit Cloud
-#     BASE_DIR = Path("/mount/src/marketing_ml_classification_regression_clustering")
-# else:
-#     BASE_DIR = Path(__file__).resolve().parent.parent  # En local, mantiene la estructura original
-
-# MODEL_PATH = BASE_DIR / "models" / "classification" / "RandomForestClassifier.pkl"
-
-# # Comprobar si el archivo realmente existe
-# if not MODEL_PATH.exists():
-#     st.error(f"El modelo no se encuentra en: {MODEL_PATH}")
-# else:
-#     st.success(f"Modelo encontrado en: {MODEL_PATH}")
-
 @st.cache_resource
-def load_model(MODEL_PATH):
+def load_model():
     """Carga el modelo con manejo de errores"""
     try:
         model, threshold = joblib.load(MODEL_PATH)
@@ -63,7 +34,7 @@ def load_model(MODEL_PATH):
         st.stop()
 
 def get_default_values():
-    """Devuelve valores por defecto para los inputs"""
+    """Valores por defecto para los inputs"""
     return {
         "MntWines": 305.03,
         "Spent": 606.71,
@@ -81,37 +52,21 @@ def user_input_features(defaults):
         col1, col2 = st.columns(2)
         
         with col1:
-            MntWines = st.number_input("🍷 Importe gastado en vino", 
-                                     min_value=0.0, max_value=1500.0, 
-                                     value=defaults["MntWines"])
-            Spent = st.number_input("💳 Importe total gastado", 
-                                   min_value=0.0, max_value=3000.0, 
-                                   value=defaults["Spent"])
-            Income = st.number_input("💰 Ingresos anuales", 
-                                   min_value=0.0, max_value=200000.0, 
-                                   value=defaults["Income"])
+            MntWines = st.number_input("🍷 Importe gastado en vino", 0.0, 1500.0, defaults["MntWines"])
+            Spent = st.number_input("💳 Importe total gastado", 0.0, 3000.0, defaults["Spent"])
+            Income = st.number_input("💰 Ingresos anuales", 0.0, 200000.0, defaults["Income"])
         
         with col2:
-            NumCatalogPurchases = st.slider("📖 Compras por catálogo", 
-                                          min_value=0, max_value=20, 
-                                          value=defaults["NumCatalogPurchases"])
-            MntMeatProducts = st.number_input("🥩 Gastado en carne", 
-                                            min_value=0.0, max_value=500.0, 
-                                            value=defaults["MntMeatProducts"])
-            NumWebPurchases = st.slider("🛒 Compras online", 
-                                      min_value=0, max_value=25, 
-                                      value=defaults["NumWebPurchases"])
+            NumCatalogPurchases = st.slider("📖 Compras por catálogo", 0, 20, defaults["NumCatalogPurchases"])
+            MntMeatProducts = st.number_input("🥩 Gastado en carne", 0.0, 500.0, defaults["MntMeatProducts"])
+            NumWebPurchases = st.slider("🛒 Compras online", 0, 25, defaults["NumWebPurchases"])
         
-        Kidhome = st.selectbox("👶 Número de hijos", [0, 1, 2], 
-                             index=defaults["Kidhome"])
-        Child_Home = st.radio("🏡 ¿Hay niños en casa?", 
-                            options=[("No", 0), ("Sí", 1)],
-                            index=defaults["Child_Home"])[1]
+        Kidhome = st.selectbox("👶 Número de hijos", [0, 1, 2], index=defaults["Kidhome"])
+        Child_Home = st.radio("🏡 ¿Hay niños en casa?", [("No", 0), ("Sí", 1)], index=defaults["Child_Home"])[1]
         
         submitted = st.form_submit_button("🔮 Predecir")
         
-    return submitted, np.array([[MntWines, Spent, Income, NumCatalogPurchases, 
-                               MntMeatProducts, NumWebPurchases, Kidhome, Child_Home]])
+    return submitted, np.array([[MntWines, Spent, Income, NumCatalogPurchases, MntMeatProducts, NumWebPurchases, Kidhome, Child_Home]])
 
 def display_results(proba, prediction):
     """Muestra los resultados de la predicción"""
@@ -124,17 +79,15 @@ def display_results(proba, prediction):
         st.error("❌ El cliente probablemente NO aceptará ninguna campaña de marketing.")
 
 def main():
-    # Configuración inicial
     st.title("📊 Predicción de Aceptación de Campañas de Marketing")
     st.write("Ingrese los valores para predecir si aceptará al menos una campaña.")
-
-    # Depuración
-    st.write(f"Directorio actual: {os.getcwd()}")
-    st.write(f"Ruta esperada del modelo: {MODEL_PATH}")
     
     # Cargar el modelo
-    MODEL_PATH = Path(__file__).parent.parent / "models" / "classification" / "RandomForestClassifier.pkl"
-    model, threshold = load_model(MODEL_PATH)
+    if not MODEL_PATH.exists():
+        st.error(f"❌ Error: El modelo no se encuentra en: {MODEL_PATH}")
+        st.stop()
+    
+    model, threshold = load_model()
     
     # Sidebar
     with st.sidebar:
@@ -144,7 +97,6 @@ def main():
         2. Haga clic en **Predecir**  
         3. Verá la probabilidad y predicción  
         """)
-        
         st.header("⚙️ Configuración del Modelo")
         st.write(f"Threshold actual: {threshold:.2f}")
     
