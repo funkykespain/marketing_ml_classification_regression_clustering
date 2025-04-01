@@ -62,8 +62,11 @@ def user_input_features(defaults):
             NumWebPurchases = st.slider("🛒 Compras online", 0, 25, defaults["NumWebPurchases"])
         
         Kidhome = st.selectbox("👶 Número de hijos", [0, 1, 2], index=defaults["Kidhome"])
-        Child_Home = st.radio("🏡 ¿Hay niños en casa?", [("No", 0), ("Sí", 1)], index=defaults["Child_Home"])[1]
-        
+        # Child_Home = st.radio("🏡 ¿Hay niños en casa?", [("No", 0), ("Sí", 1)], index=defaults["Child_Home"])[1]
+        opciones = ["No", "Sí"]
+        Child_Home = st.radio("🏡 ¿Hay niños en casa?", opciones, index=defaults["Child_Home"])
+        Child_Home = 1 if Child_Home == "Sí" else 0
+
         submitted = st.form_submit_button("🔮 Predecir")
         
     return submitted, np.array([[MntWines, Spent, Income, NumCatalogPurchases, MntMeatProducts, NumWebPurchases, Kidhome, Child_Home]])
