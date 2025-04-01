@@ -5,6 +5,10 @@ import joblib
 import numpy as np
 from pathlib import Path
 
+# Depuración
+st.write(f"Directorio actual: {os.getcwd()}")
+st.write(f"Ruta esperada del modelo: {MODEL_PATH}")
+
 # Manejo especial para urllib3 en Python 3.12
 try:
     import urllib3
@@ -12,9 +16,14 @@ except ModuleNotFoundError:
     os.system(f"{sys.executable} -m pip install urllib3>=2.0.0")
     import urllib3
 
-# Configuración de paths
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
-MODEL_PATH = BASE_DIR / "models" / "classification" / "RandomForestClassifier.pkl"
+# # Configuración de paths
+# BASE_DIR = Path(__file__).resolve().parent.parent.parent
+# MODEL_PATH = BASE_DIR / "models" / "classification" / "RandomForestClassifier.pkl"
+
+# Obtener la raíz del repositorio desde la variable de entorno de Streamlit Cloud
+REPO_ROOT = Path(os.getenv("STREAMLIT_REPO_ROOT", Path(__file__).resolve().parent.parent))
+MODEL_PATH = REPO_ROOT / "models" / "classification" / "RandomForestClassifier.pkl"
+
 
 # Configuración inicial de la página
 st.set_page_config(
