@@ -14,21 +14,7 @@ except ModuleNotFoundError:
 
 # Configuración de paths
 SRC_PATH = Path(__file__).parent.parent.parent / "src"
-MODEL_DIR = Path("models") / "classification"
-MODEL_PATH = MODEL_DIR / "RandomForestClassifier.pkl"
-
-# Verifica la ruta
-st.write(f"Buscando modelo en: {MODEL_PATH.absolute()}")
-if not MODEL_PATH.exists():
-    st.error(f"¡Archivo de modelo no encontrado en {MODEL_PATH}!")
-    st.write("Contenido del directorio models/classification:")
-    if MODEL_DIR.exists():
-        st.write(list(MODEL_DIR.iterdir()))
-    else:
-        st.write("¡El directorio no existe!")
-    st.stop()
-
-model, threshold = load_model(MODEL_PATH)
+MODEL_PATH = Path(__file__).parent.parent / "models" / "classification" / "RandomForestClassifier.pkl"
 
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
