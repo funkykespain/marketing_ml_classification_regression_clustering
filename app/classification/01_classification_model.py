@@ -12,6 +12,13 @@ except ModuleNotFoundError:
     os.system(f"{sys.executable} -m pip install urllib3>=2.0.0")
     import urllib3
 
+# Configuración inicial de la página
+st.set_page_config(
+    page_title="Predicción de Marketing",
+    page_icon="📊",
+    layout="wide"
+)
+
 # # Configuración de paths
 # BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # MODEL_PATH = BASE_DIR / "models" / "classification" / "RandomForestClassifier.pkl"
@@ -20,27 +27,30 @@ except ModuleNotFoundError:
 # REPO_ROOT = Path(os.getenv("STREAMLIT_REPO_ROOT", Path(__file__).resolve().parent.parent))
 # MODEL_PATH = REPO_ROOT / "models" / "classification" / "RandomForestClassifier.pkl"
 
-# Definir la raíz del repositorio manualmente en función del entorno de ejecución
-if "STREAMLIT_ENV" in os.environ:  # Esto significa que está en Streamlit Cloud
-    BASE_DIR = Path("/mount/src/marketing_ml_classification_regression_clustering")
-else:
-    BASE_DIR = Path(__file__).resolve().parent.parent  # En local, mantiene la estructura original
+# Determinar la ruta base correctamente
+BASE_DIR = Path(__file__).resolve().parent.parent.parent  # Sube 2 niveles desde "app/classification"
 
 MODEL_PATH = BASE_DIR / "models" / "classification" / "RandomForestClassifier.pkl"
 
-# Comprobar si el archivo realmente existe
+# Verificar si el modelo existe antes de cargarlo
 if not MODEL_PATH.exists():
-    st.error(f"El modelo no se encuentra en: {MODEL_PATH}")
+    st.error(f"❌ Error: El modelo no se encuentra en: {MODEL_PATH}")
 else:
-    st.success(f"Modelo encontrado en: {MODEL_PATH}")
+    st.success(f"✅ Modelo encontrado en: {MODEL_PATH}")
 
+# # Definir la raíz del repositorio manualmente en función del entorno de ejecución
+# if "STREAMLIT_ENV" in os.environ:  # Esto significa que está en Streamlit Cloud
+#     BASE_DIR = Path("/mount/src/marketing_ml_classification_regression_clustering")
+# else:
+#     BASE_DIR = Path(__file__).resolve().parent.parent  # En local, mantiene la estructura original
 
-# Configuración inicial de la página
-st.set_page_config(
-    page_title="Predicción de Marketing",
-    page_icon="📊",
-    layout="wide"
-)
+# MODEL_PATH = BASE_DIR / "models" / "classification" / "RandomForestClassifier.pkl"
+
+# # Comprobar si el archivo realmente existe
+# if not MODEL_PATH.exists():
+#     st.error(f"El modelo no se encuentra en: {MODEL_PATH}")
+# else:
+#     st.success(f"Modelo encontrado en: {MODEL_PATH}")
 
 @st.cache_resource
 def load_model(MODEL_PATH):
