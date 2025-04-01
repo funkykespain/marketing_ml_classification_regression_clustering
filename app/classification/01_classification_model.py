@@ -16,9 +16,23 @@ except ModuleNotFoundError:
 # BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # MODEL_PATH = BASE_DIR / "models" / "classification" / "RandomForestClassifier.pkl"
 
-# Obtener la raíz del repositorio desde la variable de entorno de Streamlit Cloud
-REPO_ROOT = Path(os.getenv("STREAMLIT_REPO_ROOT", Path(__file__).resolve().parent.parent))
-MODEL_PATH = REPO_ROOT / "models" / "classification" / "RandomForestClassifier.pkl"
+# # Obtener la raíz del repositorio desde la variable de entorno de Streamlit Cloud
+# REPO_ROOT = Path(os.getenv("STREAMLIT_REPO_ROOT", Path(__file__).resolve().parent.parent))
+# MODEL_PATH = REPO_ROOT / "models" / "classification" / "RandomForestClassifier.pkl"
+
+# Definir la raíz del repositorio manualmente en función del entorno de ejecución
+if "STREAMLIT_ENV" in os.environ:  # Esto significa que está en Streamlit Cloud
+    BASE_DIR = Path("/mount/src/marketing_ml_classification_regression_clustering")
+else:
+    BASE_DIR = Path(__file__).resolve().parent.parent  # En local, mantiene la estructura original
+
+MODEL_PATH = BASE_DIR / "models" / "classification" / "RandomForestClassifier.pkl"
+
+# Comprobar si el archivo realmente existe
+if not MODEL_PATH.exists():
+    st.error(f"El modelo no se encuentra en: {MODEL_PATH}")
+else:
+    st.success(f"Modelo encontrado en: {MODEL_PATH}")
 
 
 # Configuración inicial de la página
@@ -103,7 +117,7 @@ def main():
     # Configuración inicial
     st.title("📊 Predicción de Aceptación de Campañas de Marketing")
     st.write("Ingrese los valores para predecir si aceptará al menos una campaña.")
-    
+
     # Depuración
     st.write(f"Directorio actual: {os.getcwd()}")
     st.write(f"Ruta esperada del modelo: {MODEL_PATH}")
