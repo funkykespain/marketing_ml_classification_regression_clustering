@@ -28,10 +28,10 @@ st.set_page_config(
 )
 
 @st.cache_resource
-def load_model(model_path):
+def load_model(MODEL_PATH):
     """Carga el modelo con manejo de errores"""
     try:
-        model, threshold = joblib.load(model_path)
+        model, threshold = joblib.load(MODEL_PATH)
         return model, threshold
     except Exception as e:
         st.error(f"Error cargando el modelo: {str(e)}")
@@ -104,8 +104,8 @@ def main():
     st.write("Ingrese los valores para predecir si aceptará al menos una campaña.")
     
     # Cargar el modelo
-    model_path = Path(__file__).parent.parent / "models" / "classification" / "RandomForestClassifier.pkl"
-    model, threshold = load_model(model_path)
+    MODEL_PATH = Path(__file__).parent.parent / "models" / "classification" / "RandomForestClassifier.pkl"
+    model, threshold = load_model(MODEL_PATH)
     
     # Sidebar
     with st.sidebar:
