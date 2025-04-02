@@ -84,6 +84,7 @@ def display_results(proba, prediction):
 
 def main():
     st.title("📊 Predicción de Aceptación de Campañas de Marketing")
+    st.header("Predice qué clientes aceptarán tus campañas de marketing usando IA. Optimiza recursos y aumenta tu tasa de conversión con decisiones basadas en datos")
     st.write("Ingrese los valores para predecir si aceptará al menos una campaña.")
     
     # Cargar el modelo
