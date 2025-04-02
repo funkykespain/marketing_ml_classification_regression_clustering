@@ -43,7 +43,7 @@ def get_default_values():
         "MntMeatProducts": 66.0,
         "NumWebPurchases": 5,
         "Kidhome": 0,
-        "Child_Home": 0
+        # "Child_Home": 0
     }
 
 def user_input_features(defaults):
