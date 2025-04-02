@@ -36,11 +36,11 @@ def load_model():
 def get_default_values():
     """Valores por defecto para los inputs"""
     return {
-        "MntWines": 305.03,
-        "Spent": 606.71,
-        "Income": 51954.46,
+        "MntWines": 305.00,
+        "Spent": 607.00,
+        "Income": 51954.00,
         "NumCatalogPurchases": 2,
-        "MntMeatProducts": 65.5,
+        "MntMeatProducts": 66.0,
         "NumWebPurchases": 5,
         "Kidhome": 0,
         "Child_Home": 0
@@ -52,20 +52,21 @@ def user_input_features(defaults):
         col1, col2 = st.columns(2)
         
         with col1:
-            MntWines = st.number_input("🍷 Importe gastado en vino", 0.0, 1500.0, defaults["MntWines"])
-            Spent = st.number_input("💳 Importe total gastado", 0.0, 3000.0, defaults["Spent"])
-            Income = st.number_input("💰 Ingresos anuales", 0.0, 200000.0, defaults["Income"])
+            MntWines = st.number_input("🍷 Importe gastado en vino (últimos 2 años)", 0.0, 1500.0, defaults["MntWines"], step=1.0)
+            MntMeatProducts = st.number_input("🥩 Gastado en carne(últimos 2 años)", 0.0, 500.0, defaults["MntMeatProducts"], step=1.0)
+            Spent = st.number_input("💳 Importe total gastado en todos los productos (últimos 2 años)", 0.0, 3000.0, defaults["Spent"], step=1.0)
         
         with col2:
             NumCatalogPurchases = st.slider("📖 Compras por catálogo", 0, 20, defaults["NumCatalogPurchases"])
-            MntMeatProducts = st.number_input("🥩 Gastado en carne", 0.0, 500.0, defaults["MntMeatProducts"])
             NumWebPurchases = st.slider("🛒 Compras online", 0, 25, defaults["NumWebPurchases"])
+            Income = st.number_input("💰 Ingresos anuales", 0.0, 200000.0, defaults["Income"], step=1.0)
         
         Kidhome = st.selectbox("👶 Número de hijos", [0, 1, 2], index=defaults["Kidhome"])
-        # Child_Home = st.radio("🏡 ¿Hay niños en casa?", [("No", 0), ("Sí", 1)], index=defaults["Child_Home"])[1]
-        opciones = ["No", "Sí"]
-        Child_Home = st.radio("🏡 ¿Hay niños en casa?", opciones, index=defaults["Child_Home"])
-        Child_Home = 1 if Child_Home == "Sí" else 0
+        # Definir "¿Hay niños en casa?" automáticamente en función de "Número de hijos"
+        Child_Home = 1 if Kidhome > 0 else 0
+        # opciones = ["No", "Sí"]
+        # Child_Home = st.radio("🏡 ¿Hay niños en casa?", opciones, index=defaults["Child_Home"])
+        # Child_Home = 1 if Child_Home == "Sí" else 0
 
         submitted = st.form_submit_button("🔮 Predecir")
         
