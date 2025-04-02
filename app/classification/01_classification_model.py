@@ -53,7 +53,7 @@ def user_input_features(defaults):
         
         with col1:
             MntWines = st.number_input("🍷 Importe gastado en vino (últimos 2 años)", 0.0, 1500.0, defaults["MntWines"], step=1.0)
-            MntMeatProducts = st.number_input("🥩 Gastado en carne(últimos 2 años)", 0.0, 500.0, defaults["MntMeatProducts"], step=1.0)
+            MntMeatProducts = st.number_input("🥩 Gastado en carne (últimos 2 años)", 0.0, 500.0, defaults["MntMeatProducts"], step=1.0)
             Spent = st.number_input("💳 Importe total gastado en todos los productos (últimos 2 años)", 0.0, 3000.0, defaults["Spent"], step=1.0)
         
         with col2:
