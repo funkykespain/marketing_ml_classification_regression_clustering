@@ -125,6 +125,19 @@ def main():
         - **Gasto mediano**: $396  
         - **Máximo gasto**: $2,525  
         """)
+        # Enlace a la app de Classification
+        st.sidebar.markdown("---")  # Separador
+        st.sidebar.markdown("### Navegar a otras apps")
+        st.sidebar.markdown(
+            """
+            <a href="https://marketingmlclassificationregressionclustering-2apkcvnbir7q4iuc.streamlit.app" target="_blank">
+                <button style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+                    Predicción de Aceptación de Campañas de Marketing
+                </button>
+            </a>
+            """,
+            unsafe_allow_html=True
+        )
     
     # Entrada de usuario
     defaults = get_default_values()

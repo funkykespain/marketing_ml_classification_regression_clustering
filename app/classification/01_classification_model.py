@@ -104,6 +104,19 @@ def main():
         """)
         st.header("⚙️ Configuración del Modelo")
         st.write(f"Threshold actual: {threshold:.2f}")
+        # Enlace a la app de Regression
+        st.sidebar.markdown("---")  # Separador
+        st.sidebar.markdown("### Navegar a otras apps")
+        st.sidebar.markdown(
+            """
+            <a href="https://funkykespain-marketing--appregression02-regression-model-rjzlvk.streamlit.app" target="_blank">
+                <button style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+                    Predicción de Gasto de Clientes
+                </button>
+            </a>
+            """,
+            unsafe_allow_html=True
+        )
     
     # Entrada de usuario
     defaults = get_default_values()
