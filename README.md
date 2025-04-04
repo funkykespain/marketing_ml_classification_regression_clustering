@@ -47,7 +47,7 @@ marketing_ml_classification_regression_clustering/
 ---
 
 ### 2. **Modelo de Clasificación**  
-**Objetivo**: Predecir si un cliente aceptará una campaña de marketing.  
+**Objetivo**: Predecir si un cliente aceptará una campaña de marketing.  Predice qué clientes aceptarán campañas de marketing. Optimiza recursos y aumenta la tasa de conversión con decisiones basadas en datos
 - **Algoritmo ganador**: Random Forest (Accuracy: 84.2%).  
 - **Variables clave**: Gasto total y en 2 productos en particular, Compras online y por catálogo, Ingresos, Número de hijos.  
 
@@ -63,7 +63,7 @@ st.write("Probabilidad de aceptación: ", model.predict_proba(input_data)[0][1])
 ---
 
 ### 3. **Modelo de Regresión**  
-**Objetivo**: Predecir el gasto anual del cliente en productos.  
+**Objetivo**: Predecir el gasto total de un cliente en los próximos 2 años en el negocio.  
 - **Algoritmo ganador**: Random Forest (R² Score: 0.8214).  
 - **Variables clave**: Ingresos, Antigüedad como cliente, Edad, Hijos y Nivel de estudios.  
 
