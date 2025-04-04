@@ -89,7 +89,7 @@ def user_input_features(defaults):
 def display_results(prediction):
     """Muestra los resultados de la predicción"""
     st.subheader("📢 Resultado de la Predicción")
-    st.metric("Gasto total estimado (últimos 2 años)", f"${prediction[0]:,.2f}")
+    st.metric("Gasto total estimado (próximos 2 años)", f"${prediction[0]:,.2f}")
     
     # Interpretación del resultado
     if prediction[0] > 1000:
