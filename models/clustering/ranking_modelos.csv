@@ -1,0 +1,12 @@
+model_name,model,Num Clusters,Best Params,Silhouette Score,Davies-Bouldin,Calinski-Harabasz,complexity,ranking_score
+MeanShift,std_umap,3,"{'bandwidth': np.float64(3.6), 'bin_seeding': True}",0.5091,0.7628,3084.9697,3,0.769774105865102
+OPTICS,minmax_umap,6,"{'cluster_method': 'xi', 'max_eps': np.float64(0.267), 'metric': 'euclidean', 'min_cluster_size': 0.05, 'min_samples': 5, 'xi': 0.2}",0.7214,1.1948,1938.5728,3,0.634536346532566
+Hierarchical,robust_pca,3,"{'linkage': 'average', 'metric': 'euclidean', 'n_clusters': 3}",0.5401,0.5438,20.64,2,0.6086483223793828
+Hierarchical,std_pca,3,"{'linkage': 'average', 'metric': 'euclidean', 'n_clusters': 3}",0.4999,0.5697,19.5302,2,0.5863891015138966
+MeanShift,std_pca,3,"{'bandwidth': np.float64(5.41), 'bin_seeding': True}",0.4267,0.5888,12.6846,3,0.5099867240948055
+KMeans,minmax_pca,3,"{'init': 'random', 'max_iter': 300, 'n_clusters': 3, 'n_init': 10, 'random_state': 42}",0.243,1.4996,637.2509,1,0.47023508615849485
+OPTICS,robust_umap,6,"{'cluster_method': 'xi', 'max_eps': np.float64(0.267), 'metric': 'euclidean', 'min_cluster_size': 0.03, 'min_samples': 5, 'xi': 0.2}",0.3367,1.2101,1078.1221,3,0.4595019756651073
+KMeans,std_pca,3,"{'init': 'random', 'max_iter': 300, 'n_clusters': 3, 'n_init': 10, 'random_state': 42}",0.2117,1.874,668.6628,1,0.44561594615258815
+DBSCAN,robust_umap,5,"{'algorithm': 'auto', 'eps': np.float64(0.332), 'metric': 'euclidean', 'min_samples': 4}",-0.0197,1.7961,136.371,2,0.293415128892217
+DBSCAN,minmax_umap,0.0,,-1.0,,,2,
+MeanShift,robust_umap,0.0,,-1.0,,,3,
